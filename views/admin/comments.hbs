@@ -1,0 +1,35 @@
+{{> adminNav}}
+<div class="container mt-5">
+  <div class="card rounded shadow p-3">
+   {{#if comments}}
+    <div class="table-responsive">
+      <table class="table table-bordered text-center">
+         <thead class="border border-dark">
+            <tr>
+	       <th>№</th>
+               <th>Comment</th>
+               <th>Email</th>
+               <th>Delete</th>
+            </tr>
+         </thead>
+         <tbody class="border-bottom border-dark">
+            {{#each comments}}
+               <tr>
+		  <td>{{@index}}</td>
+                  <td style="width: 600px">{{comment}}</td>
+                  <td style="width: 400px">{{email}}</td>
+                  <td>
+                     <form action="/admin/comment/delete/{{_id}}" method="POST">
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                     </form>
+                  </td>
+               </tr>
+            {{/each}}
+         </tbody>	
+      </table>
+   </div>
+   {{else}}
+      <div class="alert alert-default">Izohlar mavjud emas</div>
+   {{/if}}
+  </div>
+</div>

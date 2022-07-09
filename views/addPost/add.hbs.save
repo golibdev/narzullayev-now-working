@@ -1,0 +1,42 @@
+{{> adminNav}}
+<div class="container mt-5 mb-5">
+    {{#if fileErr}}
+    <div class="alert alert-danger">{{fileErr}}</div>
+    <div class="row">
+    {{/if}}
+        <div class="col-12">
+            <div class="card p-4">
+                <form action="/admin/add" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Post title</label>
+                        <input type="text" class="form-control" id="title" placeholder="Post title" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Post image</label>
+                        <input type="file" class="form-control" id="image" name="image" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Post content</label>
+                        <textarea class="form-control" id="content" rows="15" name="content"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Add Post</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<script src="https://cdn.tiny.cloud/1/e1nf2omri9aawky9gtw0fxm6xznpd5fyuqj36bycraqbj9i1/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+      selector: 'textarea',
+      plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
+      toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      tinycomments_author: 'Author name',
+    });
+  </script>
+-->

@@ -1,0 +1,103 @@
+<style>
+   .disabled {
+      cursor: pointer;
+      pointer-events: none;
+   }
+   .page-item {
+      cursor: pointer;
+   }
+
+   @media screen and (max-width: 767.98px){
+      .table {
+          width: 700px !important;
+      }
+   }
+</style>
+
+{{> adminNav}}
+<div class="container mt-5 pb-2">
+   {{#if blogs}}
+    <div class="row">
+      <div class="col-md-6 col-12 mb-3">
+         <div class="rounded shadow d-flex align-items-center justify-content-between p-5" style="height: 100px;">
+            <p class="mt-3" style="font-size: 40px;">
+               <i class="fas fa-comments"></i>
+            </p>
+            <p class="mt-3" style="font-size: 40px;">
+               {{countComment}}
+            </p>
+         </div>
+      </div>
+      <div class="col-md-6 col-12 mb-3">
+         <div class="rounded shadow d-flex align-items-center justify-content-between p-5" style="height: 100px;">
+            <p class="mt-3" style="font-size: 40px;">
+               <i class="fas fa-th"></i>
+            </p>
+            <p class="mt-3" style="font-size: 40px;">
+               {{total}}
+            </p>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      {{#each blogs}}
+         <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-4">
+            <div class="card shadow p-2">
+               <div class="card-header bg-white">
+                  <p class="card-title">{{title}}</p>
+               </div>
+               <div class="card-body">
+                  <img src="{{image}}" class="img-fluid" alt="">
+               </div>
+               <div class="card-footer d-flex">
+                  <a href="/admin/edit?post={{slugUrl}}" class="btn btn-warning me-3 text-white">
+                     <i class="fas fa-pen-alt"></i>
+                  </a>
+                  <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{_id}}">
+                     <i class="fas fa-trash-alt"></i>
+                  </button>
+
+                  <div class="modal fade" id="exampleModal{{_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Do you really want to turn it off?</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                           </div>
+                           <div class="modal-body d-flex">
+                              <button type="button" class="btn btn-success me-2" data-bs-dismiss="modal">No</button>
+                              <form action="/admin/delete/{{_id}}" method="POST">
+                                 <button class="btn btn-danger">Yes</button>
+                              </form>
+                           </div>
+                           <div class="modal-footer">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      {{/each}}
+   </div>
+   <nav class="mb-5 paginatsiya">
+      <ul class="pagination">
+         {{#paginate pagination type="previous"}}
+            <li {{#if disabled}}class="page-item disabled"{{/if}}><a href="?page={{n}}&limit=9" class="page-link">Prev</a></li>
+         {{/paginate}}
+         {{#paginate pagination type="middle"}}
+            <li {{#if active}}class="page-item active"{{/if}}>
+               <a href="?page={{n}}&limit=9" class="page-link">{{n}}</a>
+            </li>
+         {{/paginate}}
+         {{#paginate pagination type="next"}}
+            <li {{#if disabled}}class="page-item disabled"{{/if}}>
+               <a href="?page={{n}}&limit=9" class="page-link">Next</a>
+            </li>
+         {{/paginate}}
+      </ul>
+   </nav>
+   {{else}}
+      <div class="alert alert-danger text-center">Mahsulotlar mavjud emas</div>
+   {{/if}}
+</div>
