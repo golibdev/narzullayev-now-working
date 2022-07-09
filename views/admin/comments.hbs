@@ -1,35 +1,58 @@
 {{> adminNav}}
 <div class="container mt-5">
-  <div class="card rounded shadow p-3">
+   <div class="card rounded shadow p-3">
    {{#if comments}}
-    <div class="table-responsive">
-      <table class="table table-bordered text-center">
-         <thead class="border border-dark">
-            <tr>
-	       <th>№</th>
-               <th>Comment</th>
-               <th>Email</th>
-               <th>Delete</th>
-            </tr>
-         </thead>
-         <tbody class="border-bottom border-dark">
-            {{#each comments}}
+      <div class="table-responsive">
+         <table class="table table-bordered text-center">
+            <thead class="border border-dark">
                <tr>
-		  <td>{{@index}}</td>
-                  <td style="width: 600px">{{comment}}</td>
-                  <td style="width: 400px">{{email}}</td>
-                  <td>
-                     <form action="/admin/comment/delete/{{_id}}" method="POST">
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                     </form>
-                  </td>
+                  <th>№</th>
+                  <th>Comment</th>
+                  <th>Email</th>
+                  <th>Delete</th>
                </tr>
-            {{/each}}
-         </tbody>	
-      </table>
+            </thead>
+            <tbody class="border-bottom border-dark">
+               {{#each comments}}
+                  <tr>
+                     <td>{{@index}}</td>
+                     <td style="width: 600px">{{comment}}</td>
+                     <td style="width: 400px">{{email}}</td>
+                     <td>
+                        <form action="/admin/comment/delete/{{_id}}" method="POST">
+                           <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                     </td>
+                  </tr>
+               {{/each}}
+            </tbody>	
+         </table>
+      </div>
+      <nav class="mb-0 paginatsiya">
+         <ul class="pagination">
+            {{#paginate pagination type="previous"}}
+               <li {{#if disabled}}class="page-item disabled"{{/if}}>
+                  <a href="?page={{n}}&limit=9" class="page-link">
+                     <i class="fas fa-angle-double-left"></i>
+                  </a>
+               </li>
+            {{/paginate}}
+            {{#paginate pagination type="middle"}}
+               <li {{#if active}}class="page-item active"{{/if}}>
+                  <a href="?page={{n}}&limit=9" class="page-link">{{n}}</a>
+               </li>
+            {{/paginate}}
+            {{#paginate pagination type="next"}}
+               <li {{#if disabled}}class="page-item disabled"{{/if}}>
+                  <a href="?page={{n}}&limit=9" class="page-link">
+                     <i class="fas fa-angle-double-right"></i>
+                  </a>
+               </li>
+            {{/paginate}}
+         </ul>
+      </nav>
+      {{else}}
+         <div class="alert alert-default">Izohlar mavjud emas</div>
+      {{/if}}
    </div>
-   {{else}}
-      <div class="alert alert-default">Izohlar mavjud emas</div>
-   {{/if}}
-  </div>
 </div>

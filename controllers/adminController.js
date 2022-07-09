@@ -155,11 +155,30 @@ const deletePost = async (req, res) => {
 
 const getComments = async (req, res) => {
    try {
-      const comments = await Comment.find().lean()
+      const pagelimit = 20;
+      const limit = parseInt(req.query.limit)
+      const page = parseInt(req.query.page)
+      const total = await Comment.countDocuments()
+
+      if(req.url === '/comments'){
+         return res.redirect(`?page=1&limit=${pagelimit}`)
+      }
+
+      const comments = await Comment
+      .find()
+      .skip((page * limit) - limit)
+      .limit(limit)
+      .lean()
 
       res.render('admin/comments.hbs', {
          title: 'Admin comments',
-         comments: comments.reverse()
+         total,
+         comments: comments.reverse(),
+         pagination: {
+            page,
+            limit,
+            pageCount: Math.ceil(total/limit)
+         }
       })
    } catch(err) {
       console.log(err)
