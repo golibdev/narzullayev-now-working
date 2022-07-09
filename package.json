@@ -29,6 +29,7 @@
     "handlebars-paginate": "^0.1.0",
     "moment": "^2.29.1",
     "mongoose": "^5.13.4",
+    "nodejs-captcha": "^0.0.6",
     "slugify": "^1.6.0",
     "tinymce": "^5.10.2",
     "uuid": "^8.3.2"

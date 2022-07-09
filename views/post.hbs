@@ -25,6 +25,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            {{#if captchaErr}}
+                <div class="alert alert-danger mt-4">
+                    {{captchaErr}}
+                </div>
+            {{/if}}
             <h4 class="mt-4">{{title}}</h4>
             <p class="lead">
                 Author: <a href="#">G`olib Narzullayev</a>
@@ -75,6 +80,10 @@
                         <div class="mb-3">
                             <label for="comment" class="form-label">Comments</label>
                             <textarea class="form-control" id="comment" name="comment" rows="5"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <img src="{{source}}" alt="captcha" class="mb-3">
+                            <input type="text" class="form-control" placeholder="enter the captcha value" name="captcha" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Send</button>
                     </form>

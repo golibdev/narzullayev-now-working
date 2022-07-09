@@ -1,6 +1,16 @@
 const Blog = require('../models/blogModel')
 const quoteGenerateRandom = require('../quote/quote')
 const Comment = require('../models/commentModel')
+const captcha = require('nodejs-captcha')
+
+function generateCaptcha() {
+   const result = captcha()
+   return result
+}
+
+let result = generateCaptcha()
+let value = result.value
+let source = result.image
 
 const getLimitBlog = async (req, res) => {
    try {
@@ -63,6 +73,10 @@ const getAllBlog = async (req, res) => {
 
 const getBlog = async (req, res) => {
    try {
+      result = generateCaptcha()
+      value = result.value
+      source = result.image
+
       let slugUrl = req.query.post
       const blog = await Blog.findOne({slugUrl}).populate('comments').lean()
 
@@ -71,18 +85,22 @@ const getBlog = async (req, res) => {
       }, {
          new: true
       })
-      const allBlog = await Blog.find().lean()
+
+      req.session.slug = slugUrl
+
       res.render('post', {
          title: blog.title,
          content: blog.content,
          image: blog.image,
          slugUrl: slugUrl,
+         source: source,
 	      id: blog._id,
 	      createdAt: blog.createdAt,
          isLogged: req.session.isLogged,
          quote: quoteGenerateRandom(),
          count: updateBlog.count,
-         comments: blog.comments.reverse()
+         comments: blog.comments.reverse(),
+         captchaErr: req.flash('captchaErr')[0]
       })
    } catch(err) {
       console.log(err)
@@ -91,7 +109,15 @@ const getBlog = async (req, res) => {
 
 const sendComment = async (req, res) => {
    try {
-      const { email, comment } = req.body
+      const { email, comment, captcha } = req.body
+
+      if(captcha !== value) {
+         req.flash('captchaErr', 'The information did not match')
+         result = generateCaptcha()
+         value = result.value
+         source = result.image
+         return res.redirect(`/blogpost?post=${req.session.slug}`)
+      }
 
       const comments = await Comment.create({
          email,
