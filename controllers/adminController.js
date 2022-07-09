@@ -155,7 +155,7 @@ const deletePost = async (req, res) => {
 
 const getComments = async (req, res) => {
    try {
-      const pagelimit = 20;
+      const pagelimit = 1;
       const limit = parseInt(req.query.limit)
       const page = parseInt(req.query.page)
       const total = await Comment.countDocuments()
@@ -173,7 +173,7 @@ const getComments = async (req, res) => {
       res.render('admin/comments.hbs', {
          title: 'Admin comments',
          total,
-         comments: comments.reverse(),
+         comments: comments,
          pagination: {
             page,
             limit,
