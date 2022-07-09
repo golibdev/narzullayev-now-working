@@ -37,19 +37,19 @@
             <ul class="pagination flex-wrap">
                {{#paginate pagination type="previous"}}
                   <li {{#if disabled}}class="page-item disabled"{{/if}}>
-                     <a href="?page={{n}}&limit=1" class="page-link" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px">
+                     <a href="?page={{n}}&limit=30" class="page-link" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px">
                         <i class="fas fa-angle-double-left"></i>
                      </a>
                   </li>
                {{/paginate}}
                {{#paginate pagination type="middle"}}
                   <li {{#if active}}class="page-item active"{{/if}}>
-                     <a href="?page={{n}}&limit=1" class="page-link">{{n}}</a>
+                     <a href="?page={{n}}&limit=30" class="page-link">{{n}}</a>
                   </li>
                {{/paginate}}
                {{#paginate pagination type="next"}}
                   <li {{#if disabled}}class="page-item disabled"{{/if}}>
-                     <a href="?page={{n}}&limit=1" class="page-link" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px">
+                     <a href="?page={{n}}&limit=30" class="page-link" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px">
                         <i class="fas fa-angle-double-right"></i>
                      </a>
                   </li>
