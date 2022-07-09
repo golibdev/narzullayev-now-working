@@ -168,6 +168,7 @@ const getComments = async (req, res) => {
       .find()
       .skip((page * limit) - limit)
       .limit(limit)
+      .sort({ createdAt: -1 })
       .lean()
 
       res.render('admin/comments.hbs', {
