@@ -173,7 +173,7 @@ const getComments = async (req, res) => {
       res.render('admin/comments.hbs', {
          title: 'Admin comments',
          total,
-         comments: comments,
+         comments: comments.reverse(),
          pagination: {
             page,
             limit,
